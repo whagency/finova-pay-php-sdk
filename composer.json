@@ -1,0 +1,25 @@
+{
+    "name": "whagency/finova-pay-php-sdk",
+    "description": "Finova Pay SDK",
+    "keywords": ["finova", "pay", "checkout", "payment", "sdk"],
+    "type": "library",
+    "minimum-stability": "stable",
+    "homepage": "https://github.com/whagency/finova-pay-php-sdk",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Finova\\Pay\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Finova",
+            "email": "support@finova-stage.pro",
+            "homepage": "https://finova-stage.pro/",
+            "role": "Developer"
+        }
+    ]
+}
