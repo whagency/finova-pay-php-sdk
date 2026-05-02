@@ -60,6 +60,17 @@ class FinovaPay
     }
 
     /**
+     * Cancel an existing active order by ID
+     *
+     * @param string $orderId
+     * @return array
+     */
+    public function cancelOrder(string $orderId): array
+    {
+        return $this->requestSigned('POST', "/api/v1/merchant/orders/{$orderId}/cancel");
+    }
+
+    /**
      * Checks the validity of the received request signature
      *
      * @param array $body

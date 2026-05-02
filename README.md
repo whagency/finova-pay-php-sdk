@@ -35,14 +35,17 @@ You can obtain them from your Finova merchant dashboard.
 
 ## Examples
 
-### `Creating an order`
+### `Get started`
 
 ~~~php
 use Finova\Pay\FinovaPay;
 
 $client = new FinovaPay('API_PUBLIC_KEY', 'API_PRIVATE_KEY');
+~~~
 
-// Create a new merchant order
+### `Create a new merchant order`
+
+~~~php
 $response = $client->createOrder([
     'externalOrderId' => '51',
     'assetCode' => 'USDT',
@@ -54,10 +57,20 @@ $response = $client->createOrder([
     'pendingUrl' => 'https://merchant.example/pending',
     'failUrl' => 'https://merchant.example/fail',
 ]);
+~~~
 
-// Get an existing order by ID
+### `Get an existing order by ID`
+
+~~~php
 $response = $client->getOrder('MERCHANT_ORDER_ID');
 ~~~
+
+### `Cancel an existing active order by ID`
+
+~~~php
+$response = $client->cancelOrder('MERCHANT_ORDER_ID');
+~~~
+
 
 ### `Receiving a POST callback`
 
