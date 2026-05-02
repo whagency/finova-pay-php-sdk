@@ -61,13 +61,17 @@ $response = $client->getOrder('MERCHANT_ORDER_ID');
 
 ### `Receiving a POST callback`
 
+#### Checks the validity of the received request signature
+
 ~~~php
-// Checks the validity of the received request signature
 if (FinovaPay::isValidWebhookSignature($body, $headers, 'API_WEBHOOK_KEY')) {
 
 }
+~~~
 
-// Callback BODY data example
+#### Callback BODY data example
+
+~~~json
 {
     "id": "17",
     "event": "payment.succeeded",
@@ -88,8 +92,11 @@ if (FinovaPay::isValidWebhookSignature($body, $headers, 'API_WEBHOOK_KEY')) {
         "settlementReleaseAt": "2026-05-02T09:47:16Z"
     }
 }
+~~~
 
-// Callback HEADERS data example
+#### Callback HEADERS data example
+
+~~~json
 {
     "Content-Type": "application/json",
     "X-Webhook-Id": "17",
