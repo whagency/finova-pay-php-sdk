@@ -35,6 +35,8 @@ You can obtain them from your Finova merchant dashboard.
 
 ## Examples
 
+### `Creating an order`
+
 ~~~php
 use Finova\Pay\FinovaPay;
 
@@ -55,10 +57,45 @@ $response = $client->createOrder([
 
 // Get an existing order by ID
 $response = $client->getOrder('MERCHANT_ORDER_ID');
+~~~
 
+### `Receiving a POST callback`
+
+~~~php
 // Checks the validity of the received request signature
 if (FinovaPay::isValidWebhookSignature($body, $headers, 'API_WEBHOOK_KEY')) {
 
+}
+
+// Callback BODY data example
+{
+    "id": "17",
+    "event": "payment.succeeded",
+    "createdAt": "2026-05-02T09:47:16Z",
+    "data": {
+        "settlementReleasedAt": "2026-05-02T09:47:16Z",
+        "amount": 10,
+        "status": "succeeded",
+        "feeAmount": 1.4285714,
+        "merchantId": "3a5bcad9-dc38-4565-9286-33925351b16e",
+        "occurredAt": "2026-05-02T09:47:16Z",
+        "merchantOrderId": "19",
+        "settlementStatus": "released",
+        "settlementHoldDays": 0,
+        "orderId": "23f1beae-7ab5-4ace-8df9-76f1cb9fdbc5",
+        "assetCode": "USDT",
+        "externalOrderId": "19",
+        "settlementReleaseAt": "2026-05-02T09:47:16Z"
+    }
+}
+
+// Callback HEADERS data example
+{
+    "Content-Type": "application/json",
+    "X-Webhook-Id": "17",
+    "X-Webhook-Event": "payment.succeeded",
+    "X-Webhook-Timestamp": "1777715236",
+    "X-Webhook-Signature": "sha256=bfa9fca98b83104d284f2bfa27ab531f4ec66d073c4cab7e0afd9fcc151db601",
 }
 ~~~
 
