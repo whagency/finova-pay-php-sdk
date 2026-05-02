@@ -60,6 +60,25 @@ class FinovaPay
     }
 
     /**
+     * Checks the validity of the received request signature
+     *
+     * @param array $body
+     * @param array $headers
+     * @param string $apiWebhookKey
+     * @return bool
+     */
+    public static function isValidWebhookSignature(array $body, array $headers, string $apiWebhookKey): bool
+    {
+        $WebhookTimestamp = !empty($headers['X-Webhook-Timestamp']) ? $headers['X-Webhook-Timestamp'] : '';
+        $webhookId = !empty($headers['X-Webhook-Id']) ? $headers['X-Webhook-Id'] : '';
+        $webhookSignature = !empty($headers['X-Webhook-Signature']) ? $headers['X-Webhook-Signature'] : '';
+        $rawBody = !empty($body) ? json_encode($body, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) : '';
+        $stringToSign = $WebhookTimestamp . '.' . $webhookId . '.' . $rawBody;
+        $expectedSignature = hash_hmac('sha256', $stringToSign, $apiWebhookKey);
+        return 'sha256=' . $expectedSignature === $webhookSignature;
+    }
+
+    /**
      * Signed request for secure API endpoints
      *
      * @param string $method

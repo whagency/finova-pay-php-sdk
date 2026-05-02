@@ -29,6 +29,7 @@ You need API credentials to use this SDK:
 
 - API Public Key
 - API Private Key
+- API Webhook Key
 
 You can obtain them from your Finova merchant dashboard.
 
@@ -54,6 +55,11 @@ $response = $client->createOrder([
 
 // Get an existing order by ID
 $response = $client->getOrder('MERCHANT_ORDER_ID');
+
+// Checks the validity of the received request signature
+if (FinovaPay::isValidWebhookSignature($body, $headers, 'API_WEBHOOK_KEY')) {
+
+}
 ~~~
 
 ## License
